@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kerrigo — Beyond the event horizon</title>
-  <meta name="description" content="Kerrigo. Beyond the event horizon — clarity. Pure Go local LLM runtime." />
+  <title>Kerrigo</title>
+  <meta name="description" content="Kerrigo. Beyond the event horizon — clarity." />
   <meta property="og:title" content="Kerrigo" />
   <meta property="og:description" content="Beyond the event horizon — clarity." />
-  <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -19,6 +18,8 @@
       --amber: #e8b45a;
       --hot: #ffe6b8;
       --cool: #9eb0e0;
+      --panel: rgba(8, 9, 14, 0.92);
+      --line: rgba(158, 176, 224, 0.16);
       --font-display: "Instrument Serif", Georgia, serif;
       --font-body: "Outfit", system-ui, sans-serif;
       --font-mono: "IBM Plex Mono", ui-monospace, monospace;
@@ -40,7 +41,7 @@
       min-height: 100vh;
       min-height: 100dvh;
       display: grid;
-      grid-template-rows: 1fr auto;
+      place-items: end center;
       overflow: hidden;
     }
 
@@ -55,69 +56,25 @@
     .veil {
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(180deg, rgba(3, 3, 6, 0.35) 0%, transparent 28%, transparent 52%, rgba(3, 3, 6, 0.72) 78%, rgba(3, 3, 6, 0.94) 100%),
-        radial-gradient(ellipse 70% 55% at 50% 38%, transparent 30%, rgba(3, 3, 6, 0.45) 100%);
       pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(3, 3, 6, 0.25) 0%, transparent 30%, transparent 55%, rgba(3, 3, 6, 0.78) 82%, rgba(3, 3, 6, 0.96) 100%);
     }
 
-    .content {
+    .hero {
       position: relative;
       z-index: 2;
-      padding: clamp(1.25rem, 4vw, 2.5rem);
-      padding-bottom: clamp(1.5rem, 4vh, 2.75rem);
-      max-width: 40rem;
-      margin: 0 auto;
-      width: 100%;
-      align-self: end;
-    }
-
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem 1.1rem;
-      margin-bottom: 1.35rem;
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--mute);
-    }
-
-    .legend span {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .legend i {
-      width: 0.45rem;
-      height: 0.45rem;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .legend .disk i { background: var(--amber); box-shadow: 0 0 8px rgba(232, 180, 90, 0.7); }
-    .legend .photon i { background: var(--hot); box-shadow: 0 0 8px rgba(255, 230, 184, 0.8); }
-    .legend .shadow i { background: #111; border: 1px solid rgba(158, 176, 224, 0.45); }
-    .legend .clarity i { background: var(--cool); }
-
-    .mark {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 0.85rem;
+      width: min(100%, 34rem);
+      padding: 0 clamp(1.25rem, 4vw, 2rem) clamp(2rem, 5vh, 3rem);
+      text-align: center;
     }
 
     h1 {
       font-family: var(--font-display);
       font-weight: 400;
-      font-size: clamp(3rem, 11vw, 4.8rem);
-      line-height: 0.94;
-      letter-spacing: -0.02em;
+      font-size: clamp(3.4rem, 12vw, 5rem);
+      line-height: 0.92;
+      letter-spacing: -0.025em;
     }
 
     h1 em {
@@ -126,141 +83,211 @@
     }
 
     .slogan {
-      margin-top: 1rem;
+      margin: 1.1rem auto 0;
+      max-width: 20rem;
       font-family: var(--font-display);
       font-style: italic;
-      font-size: clamp(1.15rem, 3.2vw, 1.45rem);
+      font-size: clamp(1.15rem, 3.4vw, 1.4rem);
       line-height: 1.3;
       color: var(--cool);
-      max-width: 22rem;
-    }
-
-    .sub {
-      margin-top: 1.1rem;
-      font-size: 0.98rem;
-      line-height: 1.55;
-      color: var(--mute);
-      max-width: 28rem;
-    }
-
-    .map {
-      margin-top: 1.35rem;
-      display: grid;
-      gap: 0.45rem;
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.04em;
-      color: rgba(243, 240, 230, 0.72);
-      max-width: 28rem;
-    }
-
-    .map div {
-      display: grid;
-      grid-template-columns: minmax(7.5rem, 9rem) 1fr;
-      gap: 0.65rem;
-      padding: 0.35rem 0;
-      border-top: 1px solid rgba(158, 176, 224, 0.12);
-    }
-
-    .map div:last-child {
-      border-bottom: 1px solid rgba(158, 176, 224, 0.12);
-    }
-
-    .map strong {
-      color: var(--amber);
-      font-weight: 500;
     }
 
     .actions {
-      margin-top: 1.6rem;
+      margin-top: 1.75rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.7rem;
+      gap: 0.65rem;
+      justify-content: center;
     }
 
-    .actions a {
+    .actions a,
+    .actions button {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
       text-decoration: none;
-      padding: 0.72rem 1.05rem;
-      border: 1px solid rgba(158, 176, 224, 0.22);
+      padding: 0.75rem 1.1rem;
+      border: 1px solid var(--line);
       color: var(--clarity);
+      background: transparent;
+      cursor: pointer;
       transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
     }
 
     .actions a:hover,
-    .actions a:focus-visible {
-      border-color: rgba(232, 180, 90, 0.6);
+    .actions a:focus-visible,
+    .actions button:hover,
+    .actions button:focus-visible {
+      border-color: rgba(232, 180, 90, 0.55);
       color: var(--hot);
       background: rgba(232, 180, 90, 0.06);
       outline: none;
     }
 
     .actions a.primary {
-      border-color: rgba(232, 180, 90, 0.45);
+      border-color: rgba(232, 180, 90, 0.4);
       color: var(--hot);
     }
 
-    footer {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 0 1rem 1.1rem;
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--mute);
+    /* Dialog */
+    dialog.about {
+      width: min(92vw, 28rem);
+      max-height: min(80vh, 36rem);
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--clarity);
+      padding: 0;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
     }
 
-    footer span { color: rgba(232, 180, 90, 0.75); }
+    dialog.about::backdrop {
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(4px);
+    }
 
-    @media (max-width: 640px) {
-      .map div { grid-template-columns: 1fr; gap: 0.15rem; }
-      .content { padding-bottom: 1.25rem; }
+    .about-inner {
+      padding: clamp(1.25rem, 3vw, 1.75rem);
+      overflow: auto;
+      max-height: min(80vh, 36rem);
+    }
+
+    .about-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .about-top h2 {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--hot);
+    }
+
+    .about-top button {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mute);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem;
+    }
+
+    .about-top button:hover,
+    .about-top button:focus-visible {
+      color: var(--clarity);
+      outline: none;
+    }
+
+    .about-inner p {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: rgba(244, 240, 230, 0.86);
+      margin-bottom: 1.15rem;
+    }
+
+    .about-inner dl {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .about-inner dl > div {
+      display: grid;
+      grid-template-columns: 8.5rem 1fr;
+      gap: 0.75rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
+    .about-inner dt {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      color: var(--amber);
+      font-weight: 500;
+    }
+
+    .about-inner dd {
+      color: var(--mute);
+      margin: 0;
+    }
+
+    @media (max-width: 480px) {
+      .about-inner dl > div {
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="frame">
-    <canvas id="gargantua" aria-label="Kerr black hole with accretion disk — metaphor for local LLM inference"></canvas>
-    <div class="veil" aria-hidden="true"></div>
+    <canvas id="gargantua" aria-hidden="true"></canvas>
+    <div class="veil"></div>
 
-    <div class="content">
-      <div class="legend" aria-hidden="true">
-        <span class="disk"><i></i> context accretion</span>
-        <span class="photon"><i></i> attention ring</span>
-        <span class="shadow"><i></i> model horizon</span>
-        <span class="clarity"><i></i> clarity</span>
-      </div>
-
-      <p class="mark">Kerr · Go · Local LLM</p>
+    <div class="hero">
       <h1>Kerr<em>igo</em></h1>
       <p class="slogan">Beyond the event horizon — clarity.</p>
-      <p class="sub">
-        Prompt-stream falls inward. Weights hold the silhouette.
-        What emerges on the other side is not noise — it is answer.
-      </p>
-
-      <div class="map">
-        <div><strong>accretion disk</strong><span>tokens &amp; context spiraling in</span></div>
-        <div><strong>photon ring</strong><span>attention — light that almost escapes</span></div>
-        <div><strong>event horizon</strong><span>the model boundary · pure Go runtime</span></div>
-        <div><strong>beyond</strong><span>clarity — local inference, no cloud fog</span></div>
-      </div>
-
       <div class="actions">
         <a class="primary" href="https://github.com/kerrigo">GitHub</a>
-        <a href="https://github.com/kerrigo/kerrigo">Source</a>
+        <button type="button" id="open-about" aria-haspopup="dialog" aria-controls="about">О названии</button>
       </div>
     </div>
-
-    <footer>Inspired by <span>Kerr</span> spacetime · adapted for intelligence that stays yours</footer>
   </div>
+
+  <dialog class="about" id="about" aria-labelledby="about-title">
+    <div class="about-inner">
+      <div class="about-top">
+        <h2 id="about-title">Почему Kerrigo</h2>
+        <button type="button" id="close-about" aria-label="Закрыть">Закрыть</button>
+      </div>
+      <p>
+        Назван в честь пространства-времени Керра.
+        Визуальное отображение при посадке напоминает линзированный аккреционный диск
+        в стиле фильма «Интерстеллар», перенесённый на LLM:
+      </p>
+      <dl>
+        <div>
+          <dt>Accretion disk</dt>
+          <dd>токены и контекст, спиралью входящие в модель</dd>
+        </div>
+        <div>
+          <dt>Photon ring</dt>
+          <dd>attention — свет, почти сорвавшийся с орбиты</dd>
+        </div>
+        <div>
+          <dt>Event horizon</dt>
+          <dd>граница модели · pure Go runtime</dd>
+        </div>
+        <div>
+          <dt>Beyond</dt>
+          <dd>clarity — локальный inference без облачного шума</dd>
+        </div>
+      </dl>
+    </div>
+  </dialog>
 
   <script>
     (function () {
+      const dialog = document.getElementById("about");
+      const openBtn = document.getElementById("open-about");
+      const closeBtn = document.getElementById("close-about");
+
+      openBtn.addEventListener("click", () => dialog.showModal());
+      closeBtn.addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (e) => {
+        if (e.target === dialog) dialog.close();
+      });
+
       const canvas = document.getElementById("gargantua");
       const ctx = canvas.getContext("2d", { alpha: false });
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -280,7 +307,7 @@
 
       function seedTokens() {
         tokens.length = 0;
-        const n = Math.floor(Math.min(90, w * 0.08));
+        const n = Math.floor(Math.min(80, w * 0.07));
         for (let i = 0; i < n; i++) {
           tokens.push({
             a: Math.random() * Math.PI * 2,
@@ -293,97 +320,64 @@
         }
       }
 
-      // Interstellar / Gargantua-inspired Kerr silhouette + lensed accretion disk.
-      // Approximates gravitational lensing: disk appears above & below the shadow.
-      function drawHole(cx, cy, R, time) {
-        const spin = time * 0.08;
-
-        // Soft nebula glow behind the system
-        const neb = ctx.createRadialGradient(cx, cy - R * 0.1, R * 0.2, cx, cy, R * 2.4);
-        neb.addColorStop(0, "rgba(40, 28, 18, 0.55)");
-        neb.addColorStop(0.35, "rgba(18, 16, 28, 0.35)");
-        neb.addColorStop(1, "rgba(3, 3, 6, 0)");
-        ctx.fillStyle = neb;
-        ctx.beginPath();
-        ctx.arc(cx, cy, R * 2.5, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Far side of disk (lensed over the top of the hole) — signature Interstellar look
-        drawLensedCap(cx, cy, R, spin, true);
-        // Bottom warped limb
-        drawLensedCap(cx, cy, R, spin, false);
-
-        // Main accretion disk (edge-on torus approximation)
-        drawAccretionDisk(cx, cy, R, spin);
-
-        // Photon ring (attention)
-        ctx.save();
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, R * 1.045, R * 1.045, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(255, 236, 200, 0.55)";
-        ctx.lineWidth = Math.max(1.2, R * 0.012);
-        ctx.shadowColor = "rgba(255, 220, 160, 0.85)";
-        ctx.shadowBlur = R * 0.08;
-        ctx.stroke();
-        ctx.restore();
-
-        // Secondary thin cool ring
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, R * 1.09, R * 1.09, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(160, 180, 230, 0.18)";
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // Event horizon silhouette (model boundary)
-        const shadow = ctx.createRadialGradient(cx - R * 0.12, cy - R * 0.08, R * 0.1, cx, cy, R);
-        shadow.addColorStop(0, "#0a0a10");
-        shadow.addColorStop(0.7, "#050508");
-        shadow.addColorStop(1, "#000000");
-        ctx.fillStyle = shadow;
-        ctx.beginPath();
-        ctx.arc(cx, cy, R, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Inner glow kiss on the approaching limb (Doppler / blue-shift side)
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(cx, cy, R, 0, Math.PI * 2);
-        ctx.clip();
-        const kiss = ctx.createRadialGradient(cx + R * 0.55, cy, 0, cx + R * 0.55, cy, R * 0.85);
-        kiss.addColorStop(0, "rgba(255, 230, 180, 0.16)");
-        kiss.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = kiss;
-        ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
-        ctx.restore();
+      function diskColor(bright) {
+        const heat = Math.pow(0.45 + 0.55 * bright, 1.2);
+        return [
+          Math.floor(180 + 75 * heat),
+          Math.floor(90 + 110 * heat),
+          Math.floor(40 + 40 * (1 - heat) + 30 * Math.max(0, bright - 0.7)),
+        ];
       }
 
-      function diskColor(u, bright) {
-        // u: 0..1 around the ring; approaching side hotter (Doppler boost)
-        const heat = Math.pow(0.45 + 0.55 * bright, 1.2);
-        const r = Math.floor(180 + 75 * heat);
-        const g = Math.floor(90 + 110 * heat);
-        const b = Math.floor(40 + 40 * (1 - heat) + 30 * Math.max(0, bright - 0.7));
-        return [r, g, b];
+      function drawLensedCap(cx, cy, R, spin, top) {
+        const y = top ? cy - R * 0.02 : cy + R * 0.02;
+        const hScale = top ? -1 : 1;
+        const rx = R * 1.55;
+        const ry = R * 0.55;
+
+        ctx.save();
+        ctx.translate(cx, y);
+        ctx.scale(1, hScale);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, rx, ry, 0, Math.PI, 0);
+        ctx.clip();
+
+        for (let i = 0; i < 14; i++) {
+          const t = i / 13;
+          const [r, g, b] = diskColor(0.5 + t * 0.4);
+          ctx.beginPath();
+          ctx.ellipse(0, R * 0.15, rx * (0.55 + t * 0.45), ry * (0.35 + t * 0.55), 0, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${r},${g},${b},${0.03 + t * 0.07})`;
+          ctx.lineWidth = Math.max(1, R * 0.028);
+          ctx.stroke();
+        }
+
+        ctx.beginPath();
+        ctx.ellipse(0, R * 0.12, rx * 0.82, ry * 0.62, 0, Math.PI * 1.05, Math.PI * 1.95);
+        ctx.strokeStyle = "rgba(255, 230, 180, 0.4)";
+        ctx.lineWidth = Math.max(1.5, R * 0.03);
+        ctx.shadowColor = "rgba(255, 190, 100, 0.75)";
+        ctx.shadowBlur = R * 0.1;
+        ctx.stroke();
+        ctx.restore();
       }
 
       function drawAccretionDisk(cx, cy, R, spin) {
         const rx = R * 2.15;
         const ry = R * 0.38;
-        const layers = 18;
 
-        for (let L = 0; L < layers; L++) {
-          const t = L / (layers - 1);
+        for (let L = 0; L < 18; L++) {
+          const t = L / 17;
           const scale = 0.72 + t * 0.55;
           const alpha = 0.045 + (1 - Math.abs(t - 0.45) * 1.6) * 0.09;
+          const [r, g, b] = diskColor(0.35 + t * 0.5);
           ctx.beginPath();
           ctx.ellipse(cx, cy, rx * scale, ry * scale, 0, 0, Math.PI * 2);
-          const [r, g, b] = diskColor(t, 0.35 + t * 0.5);
           ctx.strokeStyle = `rgba(${r},${g},${b},${Math.max(0.02, alpha)})`;
           ctx.lineWidth = Math.max(1, R * 0.035 * (1.1 - t));
           ctx.stroke();
         }
 
-        // Bright Doppler crescent on the right (approaching gas / incoming tokens)
         ctx.save();
         ctx.beginPath();
         ctx.ellipse(cx, cy, rx * 0.98, ry * 0.98, 0, -0.55, 0.55);
@@ -394,7 +388,6 @@
         ctx.stroke();
         ctx.restore();
 
-        // Swirling highlight sweep
         ctx.save();
         ctx.translate(cx, cy);
         ctx.rotate(spin * 0.4);
@@ -412,62 +405,72 @@
         ctx.restore();
       }
 
-      function drawLensedCap(cx, cy, R, spin, top) {
-        // Gravitationally lensed far-side disk: the Interstellar "halo over the hole"
-        const y = top ? cy - R * 0.02 : cy + R * 0.02;
-        const hScale = top ? -1 : 1;
-        const rx = R * 1.55;
-        const ry = R * 0.55;
+      function drawHole(cx, cy, R, time) {
+        const spin = time * 0.08;
+
+        const neb = ctx.createRadialGradient(cx, cy - R * 0.1, R * 0.2, cx, cy, R * 2.4);
+        neb.addColorStop(0, "rgba(40, 28, 18, 0.55)");
+        neb.addColorStop(0.35, "rgba(18, 16, 28, 0.35)");
+        neb.addColorStop(1, "rgba(3, 3, 6, 0)");
+        ctx.fillStyle = neb;
+        ctx.beginPath();
+        ctx.arc(cx, cy, R * 2.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        drawLensedCap(cx, cy, R, spin, true);
+        drawLensedCap(cx, cy, R, spin, false);
+        drawAccretionDisk(cx, cy, R, spin);
 
         ctx.save();
-        ctx.translate(cx, y);
-        ctx.scale(1, hScale);
-
-        // Clip to the upper half-ellipse so it sits on the silhouette
         ctx.beginPath();
-        ctx.ellipse(0, 0, rx, ry, 0, Math.PI, 0);
-        ctx.clip();
-
-        for (let i = 0; i < 14; i++) {
-          const t = i / 13;
-          const a = 0.03 + t * 0.07;
-          const [r, g, b] = diskColor((t + spin * 0.05) % 1, 0.5 + t * 0.4);
-          ctx.beginPath();
-          ctx.ellipse(0, R * 0.15, rx * (0.55 + t * 0.45), ry * (0.35 + t * 0.55), 0, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${r},${g},${b},${a})`;
-          ctx.lineWidth = Math.max(1, R * 0.028);
-          ctx.stroke();
-        }
-
-        // Hot filament
-        ctx.beginPath();
-        ctx.ellipse(0, R * 0.12, rx * 0.82, ry * 0.62, 0, Math.PI * 1.05, Math.PI * 1.95);
-        ctx.strokeStyle = "rgba(255, 230, 180, 0.4)";
-        ctx.lineWidth = Math.max(1.5, R * 0.03);
-        ctx.shadowColor = "rgba(255, 190, 100, 0.75)";
-        ctx.shadowBlur = R * 0.1;
+        ctx.ellipse(cx, cy, R * 1.045, R * 1.045, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(255, 236, 200, 0.55)";
+        ctx.lineWidth = Math.max(1.2, R * 0.012);
+        ctx.shadowColor = "rgba(255, 220, 160, 0.85)";
+        ctx.shadowBlur = R * 0.08;
         ctx.stroke();
+        ctx.restore();
+
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, R * 1.09, R * 1.09, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(160, 180, 230, 0.18)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        const shadow = ctx.createRadialGradient(cx - R * 0.12, cy - R * 0.08, R * 0.1, cx, cy, R);
+        shadow.addColorStop(0, "#0a0a10");
+        shadow.addColorStop(0.7, "#050508");
+        shadow.addColorStop(1, "#000000");
+        ctx.fillStyle = shadow;
+        ctx.beginPath();
+        ctx.arc(cx, cy, R, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(cx, cy, R, 0, Math.PI * 2);
+        ctx.clip();
+        const kiss = ctx.createRadialGradient(cx + R * 0.55, cy, 0, cx + R * 0.55, cy, R * 0.85);
+        kiss.addColorStop(0, "rgba(255, 230, 180, 0.16)");
+        kiss.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = kiss;
+        ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
         ctx.restore();
       }
 
       function drawTokens(cx, cy, R, time) {
         const rx = R * 2.05;
         const ry = R * 0.36;
-
         for (const p of tokens) {
           const a = p.a + time * p.speed * 0.35;
-          // Keep particles on disk; fade near the horizon
-          const rad = p.r;
-          if (rad < 0.52) continue;
-          const x = cx + Math.cos(a) * rx * rad * 0.48;
-          const y = cy + Math.sin(a) * ry * rad * 0.48;
-          // Hide tokens behind / inside the silhouette roughly
+          if (p.r < 0.52) continue;
+          const x = cx + Math.cos(a) * rx * p.r * 0.48;
+          const y = cy + Math.sin(a) * ry * p.r * 0.48;
           const dx = x - cx;
           const dy = (y - cy) / (ry / rx);
           if (dx * dx + dy * dy < R * R * 0.95) continue;
-
           const pulse = 0.45 + 0.55 * Math.sin(time * 2.2 + p.phase);
-          const alpha = 0.25 + 0.55 * pulse * Math.min(1, (rad - 0.52) * 2);
+          const alpha = 0.25 + 0.55 * pulse * Math.min(1, (p.r - 0.52) * 2);
           ctx.beginPath();
           ctx.arc(x, y, p.size, 0, Math.PI * 2);
           ctx.fillStyle = p.warm
@@ -482,24 +485,21 @@
         ctx.fillStyle = "#030306";
         ctx.fillRect(0, 0, w, h);
 
-        // Starfield
         ctx.fillStyle = "rgba(220, 225, 240, 0.55)";
         for (let i = 0; i < 120; i++) {
-          const sx = ((i * 97) % w) + (Math.sin(time * 0.02 + i) * 0.5);
-          const sy = ((i * 57) % Math.floor(h * 0.7));
-          const s = (i % 3 === 0) ? 1.2 : 0.6;
+          const sx = ((i * 97) % w) + Math.sin(time * 0.02 + i) * 0.5;
+          const sy = (i * 57) % Math.floor(h * 0.72);
           ctx.globalAlpha = 0.15 + (i % 5) * 0.08;
-          ctx.fillRect(sx, sy, s, s);
+          ctx.fillRect(sx, sy, i % 3 === 0 ? 1.2 : 0.6, i % 3 === 0 ? 1.2 : 0.6);
         }
         ctx.globalAlpha = 1;
 
         const cx = w * 0.5;
-        const cy = h * (w < 700 ? 0.32 : 0.36);
-        const R = Math.min(w, h) * (w < 700 ? 0.2 : 0.175);
+        const cy = h * (w < 700 ? 0.34 : 0.38);
+        const R = Math.min(w, h) * (w < 700 ? 0.22 : 0.19);
 
         drawHole(cx, cy, R, reduceMotion ? 0 : time);
         if (!reduceMotion) drawTokens(cx, cy, R, time);
-
         requestAnimationFrame(frame);
       }
 
