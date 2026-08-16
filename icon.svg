@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Kerrigo">
+  <rect width="128" height="128" fill="#000"/>
+  <defs>
+    <radialGradient id="bloom" cx="64" cy="64" r="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffb84a" stop-opacity=".4"/>
+      <stop offset="50%" stop-color="#ff6b2c" stop-opacity=".14"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="disk" x1="8" y1="64" x2="120" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#5a2008" stop-opacity="0"/>
+      <stop offset="18%" stop-color="#ff6b2c"/>
+      <stop offset="42%" stop-color="#ffe3a8"/>
+      <stop offset="50%" stop-color="#fff8ec"/>
+      <stop offset="58%" stop-color="#ffe3a8"/>
+      <stop offset="82%" stop-color="#ff6b2c"/>
+      <stop offset="100%" stop-color="#5a2008" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="56" fill="url(#bloom)"/>
+  <ellipse cx="64" cy="64" rx="56" ry="7.5" fill="url(#disk)" opacity=".8"/>
+  <path fill="#ffc56a" opacity=".92" d="M30 64c2-24 18-36 34-36s32 12 34 36c-8-18-20-26-34-26S38 46 30 64z"/>
+  <path fill="#fff0c8" opacity=".55" d="M40 58c4-14 12-20 24-20s20 6 24 20c-6-10-14-14-24-14s-18 4-24 14z"/>
+  <path fill="#ffb04a" opacity=".88" d="M30 64c2 24 18 36 34 36s32-12 34-36c-8 18-20 26-34 26S38 82 30 64z"/>
+  <circle cx="64" cy="64" r="24" fill="none" stroke="#ffe3a8" stroke-width="1.8" opacity=".95"/>
+  <circle cx="64" cy="64" r="24" fill="none" stroke="#ffb84a" stroke-width="5" opacity=".3"/>
+  <circle cx="64" cy="64" r="22.2" fill="#000"/>
+  <ellipse cx="64" cy="69" rx="50" ry="6" fill="url(#disk)"/>
+  <path fill="#000" d="M42 64h44v10H42z"/>
+</svg>

@@ -4,25 +4,35 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kerrigo</title>
-  <meta name="description" content="Kerrigo. Beyond the event horizon — clarity." />
+  <meta name="description" content="Kerrigo. Tokens in orbit. Clarity past the void." />
   <meta property="og:title" content="Kerrigo" />
-  <meta property="og:description" content="Beyond the event horizon — clarity." />
+  <meta property="og:description" content="Tokens in orbit. Clarity past the void." />
+  <meta property="og:image" content="https://kerrigo.github.io/kerrigo/icon-512.png" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --void: #020205;
-      --clarity: #fff8ec;
-      --mute: #9aa3b8;
+      --void: #01020a;
+      --clarity: #f4fbff;
+      --mute: #8aa0b8;
       --amber: #ffb84a;
       --hot: #ffe3a8;
       --magma: #ff6b2c;
+      --cyan: #6ee7ff;
+      --cyan-dim: #3ec8e8;
+      --magenta: #ff5fd2;
       --cool: #a9c0ff;
-      --panel: rgba(6, 7, 12, 0.94);
-      --line: rgba(169, 192, 255, 0.2);
+      --panel: rgba(4, 8, 18, 0.94);
+      --line: rgba(110, 231, 255, 0.22);
+      --glow-cyan: rgba(110, 231, 255, 0.45);
+      --glow-magenta: rgba(255, 95, 210, 0.35);
+      --glow-amber: rgba(255, 184, 74, 0.4);
       --font-brand: "Syne", system-ui, sans-serif;
-      --font-body: "Space Grotesk", system-ui, sans-serif;
+      --font-body: "Outfit", system-ui, sans-serif;
       --font-mono: "JetBrains Mono", ui-monospace, monospace;
     }
 
@@ -30,7 +40,7 @@
 
     html, body {
       height: 100%;
-      background: var(--void);
+      background: #000;
       color: var(--clarity);
       font-family: var(--font-body);
       font-weight: 400;
@@ -44,6 +54,7 @@
       display: grid;
       place-items: end center;
       overflow: hidden;
+      background: #000;
     }
 
     canvas#gargantua {
@@ -58,9 +69,13 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background:
-        radial-gradient(ellipse 90% 60% at 50% 34%, rgba(255, 107, 44, 0.08), transparent 55%),
-        linear-gradient(180deg, rgba(2, 2, 5, 0.15) 0%, transparent 28%, transparent 50%, rgba(2, 2, 5, 0.7) 78%, rgba(2, 2, 5, 0.97) 100%);
+      background: linear-gradient(
+        180deg,
+        transparent 0%,
+        transparent 55%,
+        rgba(0, 0, 0, 0.35) 78%,
+        rgba(0, 0, 0, 0.88) 100%
+      );
     }
 
     .hero {
@@ -73,13 +88,20 @@
 
     .eyebrow {
       font-family: var(--font-mono);
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.32em;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 0.85rem;
-      text-shadow: 0 0 24px rgba(255, 184, 74, 0.35);
+      color: var(--cyan);
+      margin-bottom: 0.95rem;
+      text-shadow:
+        0 0 18px var(--glow-cyan),
+        0 0 40px rgba(255, 95, 210, 0.25);
+    }
+
+    .eyebrow span {
+      color: var(--magenta);
+      text-shadow: 0 0 16px var(--glow-magenta);
     }
 
     h1 {
@@ -88,36 +110,61 @@
       font-size: clamp(4rem, 14vw, 6.5rem);
       line-height: 0.88;
       letter-spacing: -0.045em;
-      text-shadow:
-        0 0 40px rgba(255, 184, 74, 0.25),
-        0 0 80px rgba(255, 107, 44, 0.15);
+      background: linear-gradient(
+        105deg,
+        #ffffff 0%,
+        var(--cyan) 28%,
+        #f4fbff 48%,
+        var(--amber) 72%,
+        var(--magenta) 100%
+      );
+      background-size: 160% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 28px rgba(110, 231, 255, 0.35))
+              drop-shadow(0 0 48px rgba(255, 95, 210, 0.2));
+      animation: brand-shift 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes brand-shift {
+      from { background-position: 0% 50%; }
+      to { background-position: 100% 50%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      h1 { animation: none; }
     }
 
     h1 em {
       font-style: normal;
-      background: linear-gradient(120deg, var(--hot) 0%, var(--amber) 45%, var(--magma) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
     }
 
     .slogan {
-      margin: 1.15rem auto 0;
-      max-width: 22rem;
+      margin: 1.2rem auto 0;
+      max-width: 24rem;
       font-family: var(--font-body);
       font-weight: 500;
-      font-size: clamp(1.15rem, 3.5vw, 1.45rem);
-      line-height: 1.35;
-      letter-spacing: -0.02em;
-      color: var(--cool);
-      text-shadow: 0 0 30px rgba(169, 192, 255, 0.25);
+      font-size: clamp(1.05rem, 3.2vw, 1.35rem);
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+      color: rgba(174, 220, 255, 0.92);
+      text-shadow:
+        0 0 24px rgba(110, 231, 255, 0.35),
+        0 0 48px rgba(255, 95, 210, 0.12);
+    }
+
+    .slogan strong {
+      font-weight: 600;
+      color: var(--hot);
+      text-shadow: 0 0 20px var(--glow-amber);
     }
 
     .actions {
       margin-top: 1.9rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.7rem;
+      gap: 0.75rem;
       justify-content: center;
     }
 
@@ -125,13 +172,14 @@
     .actions button {
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       text-decoration: none;
-      padding: 0.85rem 1.2rem;
-      border: 1px solid var(--line);
-      color: var(--clarity);
-      background: rgba(255, 255, 255, 0.02);
+      padding: 0.9rem 1.25rem;
+      border: 1px solid rgba(110, 231, 255, 0.35);
+      color: var(--cyan);
+      background: rgba(110, 231, 255, 0.04);
       cursor: pointer;
       transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
     }
@@ -140,42 +188,54 @@
     .actions a:focus-visible,
     .actions button:hover,
     .actions button:focus-visible {
-      border-color: rgba(255, 184, 74, 0.65);
-      color: var(--hot);
-      background: rgba(255, 184, 74, 0.08);
-      box-shadow: 0 0 28px rgba(255, 107, 44, 0.18);
+      border-color: rgba(255, 95, 210, 0.65);
+      color: #fff;
+      background: rgba(255, 95, 210, 0.1);
+      box-shadow: 0 0 28px rgba(255, 95, 210, 0.25), 0 0 40px rgba(110, 231, 255, 0.15);
       outline: none;
       transform: translateY(-1px);
     }
 
     .actions a.primary {
-      border-color: rgba(255, 184, 74, 0.55);
-      color: #1a1008;
-      background: linear-gradient(120deg, var(--hot), var(--amber) 55%, var(--magma));
-      box-shadow: 0 0 32px rgba(255, 107, 44, 0.35);
+      border-color: transparent;
+      color: #061018;
+      background: linear-gradient(
+        120deg,
+        var(--cyan) 0%,
+        #b8f0ff 22%,
+        var(--hot) 48%,
+        var(--amber) 72%,
+        var(--magenta) 100%
+      );
+      box-shadow:
+        0 0 28px rgba(110, 231, 255, 0.35),
+        0 0 48px rgba(255, 95, 210, 0.25);
     }
 
     .actions a.primary:hover,
     .actions a.primary:focus-visible {
-      color: #120c06;
-      box-shadow: 0 0 44px rgba(255, 107, 44, 0.5);
+      color: #02060c;
+      box-shadow:
+        0 0 40px rgba(110, 231, 255, 0.5),
+        0 0 64px rgba(255, 184, 74, 0.35);
     }
 
     dialog.about {
       width: min(92vw, 30rem);
       max-height: min(80vh, 36rem);
-      border: 1px solid var(--line);
+      border: 1px solid rgba(110, 231, 255, 0.28);
       background: var(--panel);
       color: var(--clarity);
       padding: 0;
       box-shadow:
-        0 0 0 1px rgba(255, 184, 74, 0.08),
-        0 28px 90px rgba(0, 0, 0, 0.7);
+        0 0 0 1px rgba(255, 95, 210, 0.08),
+        0 0 40px rgba(110, 231, 255, 0.08),
+        0 28px 90px rgba(0, 0, 0, 0.75);
     }
 
     dialog.about::backdrop {
-      background: rgba(0, 0, 0, 0.78);
-      backdrop-filter: blur(6px);
+      background: rgba(0, 2, 10, 0.82);
+      backdrop-filter: blur(8px);
     }
 
     .about-inner {
@@ -197,7 +257,10 @@
       font-size: 1.65rem;
       font-weight: 700;
       letter-spacing: -0.03em;
-      color: var(--hot);
+      background: linear-gradient(100deg, var(--cyan), var(--hot) 55%, var(--magenta));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .about-top button {
@@ -214,14 +277,14 @@
 
     .about-top button:hover,
     .about-top button:focus-visible {
-      color: var(--clarity);
+      color: var(--cyan);
       outline: none;
     }
 
     .about-inner > p {
       font-size: 0.98rem;
       line-height: 1.55;
-      color: rgba(255, 248, 236, 0.88);
+      color: rgba(200, 230, 255, 0.88);
       margin-bottom: 1.2rem;
     }
 
@@ -243,9 +306,10 @@
     .about-inner dt {
       font-family: var(--font-mono);
       font-size: 0.68rem;
-      letter-spacing: 0.04em;
-      color: var(--amber);
-      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-weight: 600;
     }
 
     .about-inner dd {
@@ -259,11 +323,6 @@
         gap: 0.2rem;
       }
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      .actions a,
-      .actions button { transition: none; }
-    }
   </style>
 </head>
 <body>
@@ -272,9 +331,9 @@
     <div class="veil"></div>
 
     <div class="hero">
-      <p class="eyebrow">Local LLM · Pure Go</p>
+      <p class="eyebrow">Local LLM <span>·</span> Pure Go</p>
       <h1>Kerr<em>igo</em></h1>
-      <p class="slogan">Beyond the event horizon — clarity.</p>
+      <p class="slogan">Tokens in orbit. <strong>Clarity</strong> past the void.</p>
       <div class="actions">
         <a class="primary" href="https://github.com/kerrigo">GitHub</a>
         <button type="button" id="open-about" aria-haspopup="dialog" aria-controls="about">Why the name</button>
@@ -289,305 +348,239 @@
         <button type="button" id="close-about" aria-label="Close">Close</button>
       </div>
       <p>
-        Named for Kerr spacetime.
-        The landing visual echoes a lensed accretion disk in the style of
-        <em>Interstellar</em>, remapped onto an LLM:
+        Named for Kerr spacetime — curved orbits around a spinning mass.
+        The particle field is the same idea remapped onto a local LLM:
       </p>
       <dl>
         <div>
-          <dt>Accretion disk</dt>
-          <dd>tokens &amp; context spiraling into the model</dd>
+          <dt>Orbits</dt>
+          <dd>tokens &amp; context circulating through the model</dd>
         </div>
         <div>
-          <dt>Photon ring</dt>
-          <dd>attention — light that almost escapes</dd>
+          <dt>Core</dt>
+          <dd>the runtime singularity — pure Go, on-device</dd>
         </div>
         <div>
-          <dt>Event horizon</dt>
-          <dd>the model boundary · pure Go runtime</dd>
+          <dt>Pulse</dt>
+          <dd>attention firing as light escapes the ring</dd>
         </div>
         <div>
           <dt>Beyond</dt>
-          <dd>clarity — local inference, no cloud fog</dd>
+          <dd>clarity — inference without the cloud fog</dd>
         </div>
       </dl>
     </div>
   </dialog>
 
   <script>
-    (function () {
-      const dialog = document.getElementById("about");
-      document.getElementById("open-about").addEventListener("click", () => dialog.showModal());
-      document.getElementById("close-about").addEventListener("click", () => dialog.close());
-      dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
+(() => {
+  const canvas = document.getElementById("gargantua");
+  const ctx = canvas.getContext("2d", { alpha: false });
+  if (!ctx) return;
 
-      const canvas = document.getElementById("gargantua");
-      const ctx = canvas.getContext("2d", { alpha: false });
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let W = 0, H = 0, dpr = 1, cx = 0, cy = 0;
+  const t0 = performance.now();
 
-      let w = 0, h = 0, dpr = 1, t0 = performance.now();
-      const tokens = [];
+  const PALETTE = [
+    [255, 184, 74],
+    [255, 107, 44],
+    [255, 227, 168],
+    [110, 230, 255],
+    [169, 192, 255],
+    [255, 95, 210],
+  ];
 
-      function resize() {
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
-        w = window.innerWidth;
-        h = window.innerHeight;
-        canvas.width = Math.floor(w * dpr);
-        canvas.height = Math.floor(h * dpr);
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        seedTokens();
+  // Pre-render glow sprites (one per palette color)
+  const sprites = PALETTE.map(([r, g, b]) => {
+    const s = document.createElement("canvas");
+    s.width = 64; s.height = 64;
+    const c = s.getContext("2d");
+    const grd = c.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grd.addColorStop(0, `rgba(255,255,255,0.95)`);
+    grd.addColorStop(0.2, `rgba(${r},${g},${b},0.85)`);
+    grd.addColorStop(0.55, `rgba(${r},${g},${b},0.25)`);
+    grd.addColorStop(1, `rgba(${r},${g},${b},0)`);
+    c.fillStyle = grd;
+    c.fillRect(0, 0, 64, 64);
+    return s;
+  });
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, (window.innerWidth * dpr) | 0);
+    H = Math.max(1, (window.innerHeight * dpr) | 0);
+    canvas.width = W;
+    canvas.height = H;
+    cx = W * 0.5;
+    cy = H * 0.34;
+  }
+  window.addEventListener("resize", resize, { passive: true });
+  resize();
+
+  const N = Math.min(900, Math.max(320, ((W * H) / 1600) | 0));
+  const particles = new Array(N);
+
+  function spawn(i) {
+    const ring = i % 5;
+    let radius, tilt, speed, size, kind;
+    if (ring === 0) {
+      radius = 0.07 + Math.random() * 0.1;
+      tilt = 0.2 + Math.random() * 0.16;
+      speed = 2.0 + Math.random() * 1.6;
+      size = 10 + Math.random() * 16;
+      kind = 0;
+    } else if (ring === 1) {
+      radius = 0.16 + Math.random() * 0.24;
+      tilt = 0.16 + Math.random() * 0.14;
+      speed = 0.85 + Math.random() * 1.0;
+      size = 8 + Math.random() * 14;
+      kind = 1;
+    } else if (ring === 2) {
+      radius = 0.36 + Math.random() * 0.38;
+      tilt = 0.12 + Math.random() * 0.22;
+      speed = 0.3 + Math.random() * 0.5;
+      size = 6 + Math.random() * 12;
+      kind = 2;
+    } else if (ring === 3) {
+      radius = 0.06 + Math.random() * 0.55;
+      tilt = 0.9;
+      speed = 0.6 + Math.random() * 1.3;
+      size = 8 + Math.random() * 18;
+      kind = 3;
+    } else {
+      radius = 0.12 + Math.random() * 0.5;
+      tilt = 0.18 + Math.random() * 0.45;
+      speed = 1.3 + Math.random() * 2.0;
+      size = 6 + Math.random() * 12;
+      kind = 4;
+    }
+    return {
+      a: Math.random() * Math.PI * 2,
+      r: radius,
+      tilt,
+      speed: speed * (Math.random() < 0.45 ? -1 : 1),
+      size: size * dpr,
+      life: 0.6 + Math.random() * 0.4,
+      pi: i % PALETTE.length,
+      kind,
+      phase: Math.random() * Math.PI * 2,
+    };
+  }
+
+  for (let i = 0; i < N; i++) particles[i] = spawn(i);
+
+  function frame(now) {
+    const t = (now - t0) * 0.001;
+    const scale = Math.min(W, H);
+
+    // Trail fade
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "rgba(1, 2, 10, 0.28)";
+    ctx.fillRect(0, 0, W, H);
+
+    const coreR = scale * 0.085;
+    const core = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreR * 2.8);
+    core.addColorStop(0, "rgba(0,0,0,1)");
+    core.addColorStop(0.35, "rgba(10,4,20,0.85)");
+    core.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = core;
+    ctx.beginPath();
+    ctx.arc(cx, cy, coreR * 2.8, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.globalCompositeOperation = "lighter";
+
+    // Photon ring
+    const pulse = 0.6 + 0.4 * Math.sin(t * 2.4);
+    ctx.strokeStyle = `rgba(255,230,180,${0.4 * pulse})`;
+    ctx.lineWidth = 2.2 * dpr;
+    ctx.beginPath();
+    ctx.arc(cx, cy, coreR * 1.18, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.strokeStyle = `rgba(120,220,255,${0.2 * pulse})`;
+    ctx.lineWidth = 5 * dpr;
+    ctx.beginPath();
+    ctx.arc(cx, cy, coreR * 1.18, 0, Math.PI * 2);
+    ctx.stroke();
+
+    for (let i = 0; i < N; i++) {
+      const p = particles[i];
+      p.a += p.speed * 0.018;
+
+      if (p.kind === 4) {
+        p.r *= 0.9982;
+        if (p.r < 0.055) { particles[i] = spawn(i); continue; }
       }
 
-      function seedTokens() {
-        tokens.length = 0;
-        const n = Math.floor(Math.min(160, w * 0.14));
-        for (let i = 0; i < n; i++) {
-          tokens.push({
-            a: Math.random() * Math.PI * 2,
-            r: 0.52 + Math.random() * 1.45,
-            speed: 0.45 + Math.random() * 1.4,
-            size: 0.7 + Math.random() * 2.4,
-            warm: Math.random() > 0.28,
-            phase: Math.random() * Math.PI * 2,
-            trail: 0.4 + Math.random() * 0.8,
-          });
-        }
+      const rr = p.r * scale;
+      let x, y;
+      if (p.kind === 3) {
+        const h = Math.sin(p.a) * rr * 0.62;
+        const wob = Math.sin(t * 3.2 + p.phase) * rr * 0.1;
+        x = cx + Math.cos(p.phase + t * 0.4) * wob * 2.0;
+        y = cy + ((i & 1) ? h : -h);
+      } else {
+        x = cx + Math.cos(p.a) * rr;
+        y = cy + Math.sin(p.a) * rr * p.tilt;
+        x += Math.cos(t * 0.2 + p.phase) * rr * 0.025;
       }
 
-      function diskColor(bright, pulse) {
-        const heat = Math.pow(0.4 + 0.6 * bright, 1.15) * (0.85 + 0.15 * pulse);
-        return [
-          Math.floor(190 + 65 * heat),
-          Math.floor(70 + 120 * heat),
-          Math.floor(25 + 35 * (1 - heat) + 50 * Math.max(0, bright - 0.65)),
-        ];
+      const flicker = 0.75 + 0.25 * Math.sin(t * 7.0 + p.phase);
+      const alpha = p.life * flicker;
+      const sz = p.size * (0.9 + alpha * 0.35);
+
+      ctx.globalAlpha = Math.min(1, alpha);
+      ctx.drawImage(sprites[p.pi], x - sz * 0.5, y - sz * 0.5, sz, sz);
+    }
+    ctx.globalAlpha = 1;
+
+    // Neural arcs
+    ctx.lineWidth = 1.1 * dpr;
+    for (let k = 0; k < 5; k++) {
+      const [r, g, b] = PALETTE[k];
+      ctx.strokeStyle = `rgba(${r},${g},${b},0.28)`;
+      const a0 = t * (0.8 + k * 0.13) + k * 1.9;
+      const r0 = scale * (0.13 + (k % 3) * 0.09);
+      ctx.beginPath();
+      for (let s = 0; s <= 24; s++) {
+        const u = s / 24;
+        const a = a0 + u * Math.PI * (1.15 + (k & 1) * 0.7);
+        const rad = r0 * (0.88 + 0.18 * Math.sin(u * 9 + t * 5 + k));
+        const x = cx + Math.cos(a) * rad;
+        const y = cy + Math.sin(a) * rad * (0.26 + (k % 3) * 0.05);
+        if (s === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
       }
+      ctx.stroke();
+    }
 
-      function drawLensedCap(cx, cy, R, spin, top, pulse) {
-        const y = top ? cy - R * 0.02 : cy + R * 0.02;
-        const hScale = top ? -1 : 1;
-        const rx = R * 1.65;
-        const ry = R * 0.62;
+    // Core pulse
+    const pr = coreR * (1.0 + 0.2 * Math.sin(t * 3.1));
+    const pg = ctx.createRadialGradient(cx, cy, 0, cx, cy, pr * 2.2);
+    pg.addColorStop(0, "rgba(255,245,220,0.2)");
+    pg.addColorStop(0.35, "rgba(255,130,70,0.1)");
+    pg.addColorStop(0.7, "rgba(90,180,255,0.06)");
+    pg.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = pg;
+    ctx.beginPath();
+    ctx.arc(cx, cy, pr * 2.2, 0, Math.PI * 2);
+    ctx.fill();
 
-        ctx.save();
-        ctx.translate(cx, y);
-        ctx.scale(1, hScale);
-        ctx.beginPath();
-        ctx.ellipse(0, 0, rx, ry, 0, Math.PI, 0);
-        ctx.clip();
+    ctx.globalCompositeOperation = "source-over";
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
 
-        for (let i = 0; i < 18; i++) {
-          const t = i / 17;
-          const [r, g, b] = diskColor(0.55 + t * 0.45, pulse);
-          ctx.beginPath();
-          ctx.ellipse(0, R * 0.12, rx * (0.5 + t * 0.52), ry * (0.3 + t * 0.6), 0, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${r},${g},${b},${0.04 + t * 0.1})`;
-          ctx.lineWidth = Math.max(1.2, R * 0.032);
-          ctx.stroke();
-        }
-
-        ctx.beginPath();
-        ctx.ellipse(0, R * 0.1, rx * 0.88, ry * 0.68, 0, Math.PI * 1.02, Math.PI * 1.98);
-        ctx.strokeStyle = `rgba(255, 230, 170, ${0.35 + pulse * 0.25})`;
-        ctx.lineWidth = Math.max(2, R * 0.038);
-        ctx.shadowColor = "rgba(255, 120, 40, 0.9)";
-        ctx.shadowBlur = R * 0.18;
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      function drawAccretionDisk(cx, cy, R, spin, pulse) {
-        const rx = R * 2.25;
-        const ry = R * 0.4;
-
-        for (let L = 0; L < 24; L++) {
-          const t = L / 23;
-          const scale = 0.68 + t * 0.6;
-          const alpha = (0.05 + (1 - Math.abs(t - 0.42) * 1.7) * 0.12) * (0.75 + pulse * 0.35);
-          const [r, g, b] = diskColor(0.3 + t * 0.7, pulse);
-          ctx.beginPath();
-          ctx.ellipse(cx, cy, rx * scale, ry * scale, 0, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${r},${g},${b},${Math.max(0.025, alpha)})`;
-          ctx.lineWidth = Math.max(1.2, R * 0.04 * (1.15 - t));
-          ctx.stroke();
-        }
-
-        // Hot Doppler limb
-        ctx.save();
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, rx * 1.0, ry * 1.0, 0, -0.7, 0.7);
-        ctx.strokeStyle = `rgba(255, 240, 200, ${0.5 + pulse * 0.35})`;
-        ctx.lineWidth = Math.max(2.5, R * 0.055);
-        ctx.shadowColor = "rgba(255, 100, 30, 1)";
-        ctx.shadowBlur = R * 0.22;
-        ctx.stroke();
-        ctx.restore();
-
-        // Magma inner ribbon
-        ctx.save();
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, rx * 0.72, ry * 0.72, 0, 0.2, Math.PI - 0.2);
-        ctx.strokeStyle = `rgba(255, 90, 35, ${0.25 + pulse * 0.2})`;
-        ctx.lineWidth = Math.max(1.5, R * 0.03);
-        ctx.shadowColor = "rgba(255, 60, 20, 0.8)";
-        ctx.shadowBlur = R * 0.12;
-        ctx.stroke();
-        ctx.restore();
-
-        // Rotating brightness sweep
-        ctx.save();
-        ctx.translate(cx, cy);
-        ctx.rotate(spin);
-        ctx.scale(1, ry / rx);
-        const sweep = ctx.createConicGradient(0, 0, 0);
-        sweep.addColorStop(0, "rgba(255,240,200,0)");
-        sweep.addColorStop(0.05, `rgba(255,200,120,${0.18 + pulse * 0.12})`);
-        sweep.addColorStop(0.12, "rgba(255,120,40,0.12)");
-        sweep.addColorStop(0.22, "rgba(255,240,200,0)");
-        sweep.addColorStop(0.55, "rgba(160,180,255,0)");
-        sweep.addColorStop(0.62, "rgba(160,180,255,0.08)");
-        sweep.addColorStop(0.7, "rgba(255,240,200,0)");
-        sweep.addColorStop(1, "rgba(255,240,200,0)");
-        ctx.beginPath();
-        ctx.arc(0, 0, rx * 0.95, 0, Math.PI * 2);
-        ctx.arc(0, 0, rx * 0.5, 0, Math.PI * 2, true);
-        ctx.fillStyle = sweep;
-        ctx.fill("evenodd");
-        ctx.restore();
-      }
-
-      function drawHole(cx, cy, R, time) {
-        const spin = time * 0.55;
-        const pulse = 0.5 + 0.5 * Math.sin(time * 1.8);
-
-        const neb = ctx.createRadialGradient(cx, cy - R * 0.08, R * 0.15, cx, cy, R * 2.6);
-        neb.addColorStop(0, `rgba(60, 28, 12, ${0.45 + pulse * 0.15})`);
-        neb.addColorStop(0.25, "rgba(40, 18, 30, 0.35)");
-        neb.addColorStop(0.55, "rgba(12, 14, 28, 0.2)");
-        neb.addColorStop(1, "rgba(2, 2, 5, 0)");
-        ctx.fillStyle = neb;
-        ctx.beginPath();
-        ctx.arc(cx, cy, R * 2.7, 0, Math.PI * 2);
-        ctx.fill();
-
-        drawLensedCap(cx, cy, R, spin, true, pulse);
-        drawLensedCap(cx, cy, R, spin, false, pulse);
-        drawAccretionDisk(cx, cy, R, spin, pulse);
-
-        // Photon ring — alive pulse
-        ctx.save();
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, R * 1.05, R * 1.05, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(255, 236, 200, ${0.45 + pulse * 0.4})`;
-        ctx.lineWidth = Math.max(1.5, R * 0.016);
-        ctx.shadowColor = `rgba(255, 180, 80, ${0.7 + pulse * 0.3})`;
-        ctx.shadowBlur = R * (0.1 + pulse * 0.08);
-        ctx.stroke();
-        ctx.restore();
-
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, R * 1.12, R * 1.12, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(160, 185, 255, ${0.12 + pulse * 0.1})`;
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
-
-        const shadow = ctx.createRadialGradient(cx - R * 0.1, cy - R * 0.06, R * 0.08, cx, cy, R);
-        shadow.addColorStop(0, "#0c0c14");
-        shadow.addColorStop(0.65, "#050508");
-        shadow.addColorStop(1, "#000000");
-        ctx.fillStyle = shadow;
-        ctx.beginPath();
-        ctx.arc(cx, cy, R, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(cx, cy, R, 0, Math.PI * 2);
-        ctx.clip();
-        const kiss = ctx.createRadialGradient(cx + R * 0.58, cy, 0, cx + R * 0.58, cy, R * 0.9);
-        kiss.addColorStop(0, `rgba(255, 200, 120, ${0.14 + pulse * 0.1})`);
-        kiss.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = kiss;
-        ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
-        ctx.restore();
-      }
-
-      function drawTokens(cx, cy, R, time) {
-        const rx = R * 2.15;
-        const ry = R * 0.38;
-
-        for (const p of tokens) {
-          const a = p.a + time * p.speed * 0.55;
-          // Slow inward drift
-          const rad = Math.max(0.5, p.r - (time * 0.01 * (p.speed * 0.15)) % 1.2);
-          const rUse = 0.55 + ((rad - 0.55) % 1.4);
-
-          const x = cx + Math.cos(a) * rx * rUse * 0.48;
-          const y = cy + Math.sin(a) * ry * rUse * 0.48;
-          const dx = x - cx;
-          const dy = (y - cy) / (ry / rx);
-          if (dx * dx + dy * dy < R * R * 0.92) continue;
-
-          // Short trail along orbit
-          const tx = cx + Math.cos(a - 0.08 * p.trail) * rx * rUse * 0.48;
-          const ty = cy + Math.sin(a - 0.08 * p.trail) * ry * rUse * 0.48;
-          const pulse = 0.4 + 0.6 * Math.sin(time * 3.2 + p.phase);
-          const alpha = 0.3 + 0.6 * pulse;
-
-          const grad = ctx.createLinearGradient(tx, ty, x, y);
-          if (p.warm) {
-            grad.addColorStop(0, "rgba(255, 120, 40, 0)");
-            grad.addColorStop(1, `rgba(255, 210, 130, ${alpha})`);
-          } else {
-            grad.addColorStop(0, "rgba(120, 150, 255, 0)");
-            grad.addColorStop(1, `rgba(180, 200, 255, ${alpha * 0.85})`);
-          }
-          ctx.strokeStyle = grad;
-          ctx.lineWidth = p.size * 0.7;
-          ctx.beginPath();
-          ctx.moveTo(tx, ty);
-          ctx.lineTo(x, y);
-          ctx.stroke();
-
-          ctx.beginPath();
-          ctx.arc(x, y, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = p.warm
-            ? `rgba(255, 220, 150, ${alpha})`
-            : `rgba(180, 200, 255, ${alpha * 0.9})`;
-          ctx.fill();
-        }
-      }
-
-      function frame(now) {
-        const time = (now - t0) / 1000;
-        ctx.fillStyle = "#020205";
-        ctx.fillRect(0, 0, w, h);
-
-        // Twinkling starfield
-        for (let i = 0; i < 140; i++) {
-          const sx = ((i * 97) % w) + Math.sin(time * 0.05 + i) * 0.8;
-          const sy = (i * 53) % Math.floor(h * 0.74);
-          const twinkle = 0.2 + 0.8 * Math.abs(Math.sin(time * (1.2 + (i % 7) * 0.15) + i));
-          ctx.globalAlpha = (0.12 + (i % 5) * 0.07) * twinkle;
-          ctx.fillStyle = i % 4 === 0 ? "#ffe3a8" : "#dce3ff";
-          const s = i % 3 === 0 ? 1.4 : 0.7;
-          ctx.fillRect(sx, sy, s, s);
-        }
-        ctx.globalAlpha = 1;
-
-        const cx = w * 0.5;
-        const cy = h * (w < 700 ? 0.33 : 0.36);
-        const R = Math.min(w, h) * (w < 700 ? 0.23 : 0.2);
-
-        drawHole(cx, cy, R, reduceMotion ? 0 : time);
-        if (!reduceMotion) drawTokens(cx, cy, R, time);
-        requestAnimationFrame(frame);
-      }
-
-      window.addEventListener("resize", resize);
-      resize();
-      requestAnimationFrame(frame);
-    })();
-  </script>
+  const about = document.getElementById("about");
+  const openBtn = document.getElementById("open-about");
+  const closeBtn = document.getElementById("close-about");
+  if (about && openBtn && closeBtn) {
+    openBtn.addEventListener("click", () => about.showModal());
+    closeBtn.addEventListener("click", () => about.close());
+    about.addEventListener("click", (e) => {
+      if (e.target === about) about.close();
+    });
+  }
+})();
+</script>
 </body>
 </html>
