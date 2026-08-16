@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kerrigo — Beyond the event horizon</title>
+  <meta name="description" content="Kerrigo. Beyond the event horizon — clarity. Pure Go local intelligence." />
+  <meta property="og:title" content="Kerrigo" />
+  <meta property="og:description" content="Beyond the event horizon — clarity." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --void: #050508;
+      --depth: #0a0c12;
+      --ring-cool: #a8b8e8;
+      --ring-warm: #e4b56a;
+      --ring-hot: #f3dfc0;
+      --clarity: #f3efe6;
+      --mute: #7c8090;
+      --line: rgba(168, 184, 232, 0.18);
+      --font-display: "Instrument Serif", Georgia, serif;
+      --font-body: "Outfit", system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100%;
+      background: var(--void);
+      color: var(--clarity);
+      font-family: var(--font-body);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse 80% 55% at 50% 42%, rgba(228, 181, 106, 0.07), transparent 55%),
+        radial-gradient(ellipse 50% 40% at 50% 48%, rgba(168, 184, 232, 0.06), transparent 50%),
+        var(--void);
+    }
+
+    .stage {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: clamp(1.5rem, 4vw, 3rem);
+      position: relative;
+    }
+
+    .horizon {
+      position: relative;
+      width: min(92vw, 34rem);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+    }
+
+    .ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .ring-outer {
+      border: 1px solid var(--line);
+      box-shadow:
+        0 0 40px rgba(168, 184, 232, 0.06),
+        inset 0 0 40px rgba(168, 184, 232, 0.03);
+      animation: drift 48s linear infinite;
+    }
+
+    .ring-mid {
+      inset: 8%;
+      border: 1px solid rgba(228, 181, 106, 0.28);
+      box-shadow: 0 0 60px rgba(228, 181, 106, 0.08);
+      animation: drift 32s linear infinite reverse;
+    }
+
+    .ring-mid::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 210deg,
+        transparent 0deg,
+        rgba(243, 223, 192, 0.55) 28deg,
+        transparent 70deg,
+        transparent 180deg,
+        rgba(168, 184, 232, 0.35) 200deg,
+        transparent 250deg
+      );
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+      mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+      animation: spin 22s linear infinite;
+    }
+
+    .ring-inner {
+      inset: 22%;
+      border: 1px solid rgba(243, 223, 192, 0.16);
+      background: radial-gradient(circle at 50% 50%, rgba(10, 12, 18, 0.2), var(--void) 70%);
+    }
+
+    .core {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 1.5rem;
+      max-width: 18rem;
+    }
+
+    .mark {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ring-warm);
+      margin-bottom: 1.1rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(3.2rem, 12vw, 4.6rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--clarity);
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--ring-hot);
+      font-weight: 400;
+    }
+
+    .slogan {
+      margin-top: 1.35rem;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.05rem, 3.4vw, 1.35rem);
+      line-height: 1.35;
+      color: var(--ring-cool);
+      max-width: 16rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .sub {
+      margin-top: 1.75rem;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: var(--mute);
+      max-width: 17rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .actions {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+
+    .actions a {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      padding: 0.7rem 1.05rem;
+      border: 1px solid var(--line);
+      color: var(--clarity);
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+    }
+
+    .actions a:hover,
+    .actions a:focus-visible {
+      border-color: rgba(228, 181, 106, 0.55);
+      color: var(--ring-hot);
+      background: rgba(228, 181, 106, 0.06);
+      outline: none;
+    }
+
+    .actions a.primary {
+      border-color: rgba(228, 181, 106, 0.4);
+      color: var(--ring-hot);
+    }
+
+    footer {
+      position: absolute;
+      bottom: clamp(1rem, 3vh, 2rem);
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+
+    footer span {
+      color: rgba(228, 181, 106, 0.7);
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes drift {
+      to { transform: rotate(-360deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ring-outer,
+      .ring-mid,
+      .ring-mid::before {
+        animation: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .core { max-width: 15rem; }
+      .slogan { max-width: 14rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <div class="horizon" aria-hidden="false">
+      <div class="ring ring-outer"></div>
+      <div class="ring ring-mid"></div>
+      <div class="ring ring-inner"></div>
+      <div class="core">
+        <p class="mark">Kerr · Go</p>
+        <h1>Kerr<em>igo</em></h1>
+        <p class="slogan">Beyond the event horizon — clarity.</p>
+        <p class="sub">
+          Local intelligence in pure Go.
+          Past the noise of the cloud — where the signal holds.
+        </p>
+        <div class="actions">
+          <a class="primary" href="https://github.com/kerrigo">GitHub</a>
+          <a href="https://github.com/kerrigo/kerrigo">Source</a>
+        </div>
+      </div>
+    </div>
+    <footer>Named for <span>Kerr</span> spacetime · built for clarity</footer>
+  </main>
+</body>
+</html>
